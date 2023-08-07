@@ -1,9 +1,25 @@
-// Test 1: Benefits Render
-// Render points header
-// Renders two buttons
-// Renders ScrollView with sections
-// Renders BottomTab Navigator (ideally with correct tab pressed)
+import { describe, it, expect, beforeEach } from '@jest/globals'
+import { render, screen } from '@testing-library/react-native'
+import { Benefits } from '../screens/Benefits'
+import ThemeProvider from '../theme/ThemeProvider'
 
-// Test 2: Navigates to "Transactions" on press
 
-// Test 3: Navigates to "Redeem" flow on press
+describe('Benefits Screen', () => {
+
+    beforeEach(() => {
+        render(
+            <ThemeProvider>
+                <Benefits />
+            </ThemeProvider>)
+    })
+
+    it('should render layout', () => {
+        expect(screen.getByTestId('grid')).toBeTruthy();
+    })
+
+    it('should render sections', () => {
+        expect(screen.getByTestId('promo-1-text')).toBeTruthy();
+        expect(screen.getByTestId('promo-2-text')).toBeTruthy();
+        expect(screen.getByTestId('promo-3-text')).toBeTruthy();
+    })
+})
