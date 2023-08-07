@@ -8,10 +8,13 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "json-server": "json-server --watch ./db/db.json --port 3001"
   },
   "dependencies": {
     "@kichiyaki/react-native-barcode-generator": "^0.6.7",
+    "axios": "^1.4.0",
+    "json-server": "^0.17.3",
     "lottie-react-native": "^6.0.1",
     "react": "18.2.0",
     "react-native": "0.72.3",
