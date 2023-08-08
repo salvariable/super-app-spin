@@ -1,17 +1,17 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from 'react-native';
 
-type Props = {}
+type Props = {};
 
-export const Home = (props: Props) => {
-    return (
-        <View style={styles.container}>
-            <Text testID="home-text">
-                Pantalla Home
-            </Text>
-        </View>
-    )
-}
+const Home = (props: Props) => {
+  return (
+    <View style={styles.container}>
+      <Text testID="home-text">Pantalla Home</Text>
+    </View>
+  );
+};
+
+export default Home;
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center' }
-})
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+});

@@ -33,6 +33,16 @@
       "transactionNo": "5dced89c-2b6e-4a1c-a715-c19b0a51",
       "giftCode": "42738499092812000",
       "id": 4
+    },
+    {
+      "entity": "Smart Fit",
+      "date": "Tue Aug 08 2023",
+      "expiryDate": "Fri Sep 01 2023",
+      "points": 500,
+      "operation": "redeemed",
+      "transactionNo": "5dced89c-2b6e-4a1c-a715-c19b0a50",
+      "giftCode": "42738499092812008",
+      "id": 5
     }
   ]
 }

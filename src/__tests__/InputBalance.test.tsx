@@ -1,9 +1,61 @@
-// // Test 1: Input Balance Render
-// Renders:
-    // - points header (card?)
-    // - text
-    // - input
-    // - button
+import { describe, expect, it } from '@jest/globals';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
+
+import { AppContext } from '../context/AppContext';
+import ThemeProvider from '../theme/ThemeProvider';
+
+import { InputBalance } from '../screens';
+
+describe('<InputBalance />', () => {
+  const setup = () =>
+    render(<InputBalance />, {
+      wrapper: ThemeProvider,
+    });
+
+  it('should render layout', () => {
+    const { getByTestId } = setup();
+
+    const layoutContainer = getByTestId('input-balance');
+    const headerContainer = getByTestId('header-points');
+    const instructionLabel = getByTestId('ínstruction-label');
+    const inputAmount = getByTestId('input-amount');
+    const button = getByTestId('button');
+
+    expect(layoutContainer).toBeOnTheScreen();
+    expect(headerContainer).toBeOnTheScreen();
+    expect(instructionLabel).toBeOnTheScreen();
+    expect(inputAmount).toBeOnTheScreen();
+    expect(button).toBeOnTheScreen();
+  });
+
+  it('should render provider points', async () => {
+    const { getByTestId } = render(
+      <AppContext.Provider value={{ balancePoints: 1000 }}>
+        <InputBalance />
+      </AppContext.Provider>,
+      {
+        wrapper: ThemeProvider,
+      },
+    );
+
+    await waitFor(() => {
+      const points = getByTestId('points');
+
+      expect(points.children[0]).toBe('1000');
+    });
+  });
+
+  it('should update input value when text change', () => {
+    const { getByTestId } = setup();
+
+    const inputElement = getByTestId('input-amount');
+    const input = '20';
+
+    fireEvent.changeText(inputElement, input);
+
+    expect(inputElement.props.value).toBe(input);
+  });
+});
 
 // Test 2: If button is enabled and called, API mock is called with success and navigates to 'Redeem Confirmation'
 
@@ -28,4 +80,3 @@
 // Test 12: If input value is higher than balance, error message is expected
 
 // Test 13: If input value is zero, error message is expected
-
