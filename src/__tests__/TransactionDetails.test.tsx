@@ -1,27 +1,40 @@
-// // Test 1: Transaction Details Render
-// Renders layout with received props / type
-
 import { describe, expect, it } from '@jest/globals';
 import { render } from '@testing-library/react-native';
 
-import { TransactionDetails } from '../screens/TransactionDetails';
+import TransactionDetails from '../screens/TransactionDetails';
+import { TTransaction } from '../types/data.types';
 
 describe('<TransactionDetails />', () => {
-  const setup = () => render(<TransactionDetails {...({} as any)} />);
+  const props: any = {
+    route: {
+      params: {
+        transaction: {
+          entity: 'Hola',
+          operation: 'earned',
+          points: 333,
+          transactionNo: '123'
+        } as TTransaction
+      }
+    }
+  }
+  const setup = () => render(<TransactionDetails {...props} />);
 
   it('should render layout', () => {
     const { getByTestId } = setup();
 
-    const detailsLayout = getByTestId('transaction-details');
+    const entity = getByTestId('entity');
+    const points = getByTestId('points');
+    const amount = getByTestId('amount');
+    const date = getByTestId('date');
+    const expiryDate = getByTestId('expiry-date');
+    const transactionNumber = getByTestId('transaction-number');
+    const operationPoints = `${points.children[0]}${points.children[1]}`
 
-    expect(detailsLayout).toBeOnTheScreen();
+    expect(entity).toBeOnTheScreen();
+    expect(operationPoints).toBe('+333');
+    expect(amount.children[0]).toBe('$33.3');
+    expect(transactionNumber).toBeOnTheScreen();
+    expect(date).toBeOnTheScreen();
+    expect(expiryDate).toBeOnTheScreen();
   });
-
-  // it('should render', () => {
-  //   const {getByTestId} = setup();
-
-  //   const entityLabel = getByTestId('entity');
-
-  //   expect(entityLabel).toHaveTextContent()
-  // });
 });

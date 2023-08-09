@@ -9,6 +9,7 @@ import type {
 } from './src/types/navigation.types';
 
 import {
+  ACCOUNT,
   BENEFITS,
   FEED,
   HOME,
@@ -17,6 +18,7 @@ import {
   SELECT_ENTITY,
   TRANSACTIONS,
   TRANSACTION_DETAILS,
+  WALLET,
 } from './src/constants/screens';
 
 import {
@@ -36,7 +38,7 @@ const Stack = createNativeStackNavigator<TStackBenefits>();
 const Tab = createBottomTabNavigator<TTabNavigation>();
 
 const BenefitsStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator initialRouteName={FEED}>
     <Stack.Screen name={FEED} component={Benefits} />
     <Stack.Screen
       name={TRANSACTIONS}
@@ -53,7 +55,9 @@ const BenefitsStack = () => (
 );
 
 const TabNavigation = () => (
-  <Tab.Navigator>
+  <Tab.Navigator screenOptions={{
+    headerShown: false
+  }}>
     <Tab.Screen
       name={HOME}
       component={Home}
@@ -67,18 +71,31 @@ const TabNavigation = () => (
       component={BenefitsStack}
       options={{
         tabBarLabel: 'Beneficios',
-        header: () => <NavBar variant="primary" title="Beneficios" />,
-        // headerShown: false,
+      }}
+    />
+    <Tab.Screen
+      name={WALLET}
+      component={Home}
+      options={{
+        tabBarLabel: 'Cartera',
+        tabBarTestID: 'tab-wallet',
+
+      }}
+    />
+    <Tab.Screen
+      name={ACCOUNT}
+      component={Home}
+      options={{
+        tabBarLabel: 'Cuenta',
+        tabBarTestID: 'tab-account',
+
       }}
     />
   </Tab.Navigator>
 );
 
 const Navigation = () => {
-  // Pantalla Home
-  // Stack Transactions
-  // Stack Wallet
-  // Pantalla Perfil
+
   return (
     <NavigationContainer>
       <TabNavigation />

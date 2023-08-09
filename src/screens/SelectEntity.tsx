@@ -42,12 +42,6 @@ const SelectEntity = () => {
     return new Set(entitiesData);
   }, [data]);
 
-  const myPoints = useMemo(() => {
-    return data.reduce((acc, current) => {
-      return (acc += current.points);
-    }, 0);
-  }, [data]);
-
   return (
     <View>
       {loading ? (

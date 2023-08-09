@@ -1,6 +1,5 @@
 package com.superappspin;
 import android.os.Bundle;
-import com.faizal.OtpVerify.OtpVerifyPackage;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
