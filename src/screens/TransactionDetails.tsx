@@ -1,14 +1,21 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Text, View } from 'react-native';
 
-type Props = {}
+import { TStackBenefits } from '../types/navigation.types';
 
-export const TransactionDetails = (props: Props) => {
-    return (
-        <View>
-            <Text>
-                Transaction Details screen
-            </Text>
-        </View>
-    )
-}
+import { TRANSACTION_DETAILS } from '../constants/screens';
+
+type Props = NativeStackScreenProps<TStackBenefits, typeof TRANSACTION_DETAILS>;
+
+const TransactionDetails = ({ route }: Props) => {
+  // const { transaction } = route.params;
+
+  return (
+    <View testID="transaction-details">
+      {/* <Text testID="entity">{transaction.entity}</Text> */}
+    </View>
+  );
+};
+
+export default TransactionDetails;

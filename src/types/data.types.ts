@@ -11,7 +11,7 @@ export type TTransaction = {
     entity: string;
     date: string;
     points: number;
-    operation: IOperationType;
+    operation: TOperationType;
     transactionNo: string;
     id: number;
     amount?: number;
