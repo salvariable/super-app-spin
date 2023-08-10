@@ -44,5 +44,37 @@
       "giftCode": "42738499092812008",
       "id": 5
     }
+  ],
+  "entity": [
+    {
+      "id": 1,
+      "name": "Oxxo Gas",
+      "category": "fuel",
+      "avatar": "oxxo-gas"
+    },
+    {
+      "id": 2,
+      "name": "Volaris",
+      "category": "flight",
+      "avatar": "volaris"
+    },
+    {
+      "id": 3,
+      "name": "Smart Fit",
+      "category": "fitness",
+      "avatar": "smart-fit"
+    },
+    {
+      "id": 4,
+      "name": "VIX",
+      "category": "entertainment",
+      "avatar": "vix"
+    },
+    {
+      "id": 5,
+      "name": "Oxxo",
+      "category": "groceries",
+      "avatar": "oxxo"
+    }
   ]
 }

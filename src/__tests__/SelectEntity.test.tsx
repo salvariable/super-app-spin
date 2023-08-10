@@ -1,10 +1,3 @@
-// // Test 1: Transactions Render
-// Render TopTab navigator with "All", "Earned" and "Redeemed" titles
-// Renders list with transactions
-// Renders date label separation
-
-// Test 2: Navigates to transaction details on transaction press
-
 import {
   describe,
   it,
@@ -13,9 +6,9 @@ import {
   afterAll,
   afterEach,
   beforeEach,
+  jest,
 } from '@jest/globals';
 import {
-  act,
   render,
   screen,
   waitFor,
@@ -27,37 +20,55 @@ import { setupServer } from 'msw/node';
 import { SelectEntity } from '../screens';
 
 import ThemeProvider from '../theme/ThemeProvider';
+import AppProvider from '../context/AppContext';
+import { NavigationContainer } from '@react-navigation/native';
 
-const DB_HISTORY = [
+const DB_ENTITY = [
   {
-    entity: 'Oxxo Gas',
-    date: 'Sun Aug 06 2023',
-    points: 100,
-    operation: 'earned',
-    transactionNo: '5dced89c-2b6e-4a1c-a715-c19b0a51',
     id: 1,
+    name: 'Oxxo Gas',
+    category: 'fuel',
+    avatar: './../src/assets/Images/volaris.png.png',
   },
   {
-    entity: 'Volaris',
-    date: 'Sun Aug 01 2023',
-    points: 1000,
-    operation: 'earned',
-    transactionNo: '5dced89c-2b6e-4a1c-a715-c19b0a51',
     id: 2,
+    name: 'Volaris',
+    category: 'flight',
+    avatar: './../src/assets/Images/volaris.png.png',
   },
 ];
 
 const server = setupServer(
   rest.get('http://localhost:3001/history', (req, res, ctx) => {
-    return res(ctx.json(DB_HISTORY));
+    return res(ctx.json([]));
+  }),
+  rest.get('http://localhost:3001/entity', (req, res, ctx) => {
+    return res(ctx.json(DB_ENTITY));
   }),
 );
 
+const mockedNavigation = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  return {
+    useNavigation: () => ({
+      navigate: mockedNavigation,
+    }),
+  };
+});
+
 describe('<SelectEntity />', () => {
   beforeEach(() => {
-    render(<SelectEntity />, {
-      wrapper: ThemeProvider,
-    });
+    mockedNavigation.mockClear();
+
+    render(
+      <AppProvider>
+        <SelectEntity />
+      </AppProvider>,
+      {
+        wrapper: ThemeProvider,
+      },
+    );
   });
 
   beforeAll(() => server.listen());

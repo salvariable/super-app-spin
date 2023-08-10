@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-type Props = {};
+const phoneIcon = require('../assets/icons/phone.png');
 
-const Home = (props: Props) => {
+const Home = () => {
   return (
     <View style={styles.container}>
+      <Image source={phoneIcon} style={styles.icon} />
       <Text testID="home-text">Pantalla Home</Text>
     </View>
   );
@@ -13,5 +14,13 @@ const Home = (props: Props) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  icon: {
+    marginBottom: 20,
+  },
 });

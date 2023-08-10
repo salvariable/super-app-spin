@@ -1,61 +1,45 @@
-import React, { useMemo } from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { View, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 
-import type { TStackBenefits } from '../types/navigation.types';
+import { useAppContext } from '../context/AppContext';
 
-import { INPUT_BALANCE } from '../constants/screens';
-
-import { useFetchTransactions } from '../hooks/useFetchTransactions';
-
-const ENTITY_LIMIT = 1000;
-const ENTITY_MIN = 20;
-
-const EntityItem = ({ entity }: { entity: string }) => {
-  const navigation = useNavigation<NavigationProp<TStackBenefits>>();
-
-  const goToInputBalance = () =>
-    navigation.navigate(INPUT_BALANCE, {
-      entityLimit: ENTITY_LIMIT,
-      entityMin: ENTITY_MIN,
-    });
-
-  return (
-    <TouchableOpacity onPress={goToInputBalance}>
-      <Text>{entity}</Text>
-    </TouchableOpacity>
-  );
-};
+import Text from '../components/Text/Text';
+import EntityItem from '../components/custom/EntityItem';
 
 const SelectEntity = () => {
-  const { data, loading } = useFetchTransactions();
+  const { getEntities, entities } = useAppContext();
 
-  const entities = useMemo(() => {
-    const entitiesData = data.map(transaction => transaction.entity);
-
-    return new Set(entitiesData);
-  }, [data]);
+  useEffect(() => {
+    getEntities();
+  }, []);
 
   return (
-    <View>
-      {loading ? (
+    <View style={styles.container}>
+      {entities.length === 0 ? (
         <ActivityIndicator testID="loader" />
       ) : (
-        <FlatList
-          testID="entities-list"
-          data={Array.from(entities)}
-          keyExtractor={item => item}
-          renderItem={({ item }) => <EntityItem entity={item} />}
-        />
+        <>
+          <Text variant="content-one-regular" numberOfLines={2}>
+            Elige la marca aliada en la que quieres usar tus puntos
+          </Text>
+          <FlatList
+            testID="entities-list"
+            data={entities}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => <EntityItem entity={item} />}
+          />
+        </>
       )}
     </View>
   );
 };
 
 export default SelectEntity;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+  },
+});

@@ -29,9 +29,10 @@ import {
   SelectEntity,
   TransactionDetails,
   Transactions,
+  Wallet,
 } from './src/screens';
 
-import { NavBar } from './src';
+import { Image } from 'react-native';
 
 const Stack = createNativeStackNavigator<TStackBenefits>();
 
@@ -39,7 +40,14 @@ const Tab = createBottomTabNavigator<TTabNavigation>();
 
 const BenefitsStack = () => (
   <Stack.Navigator initialRouteName={FEED}>
-    <Stack.Screen name={FEED} component={Benefits} />
+    <Stack.Screen
+      name={FEED}
+      component={Benefits}
+      options={{
+        headerTitle: 'Beneficios',
+        headerShadowVisible: false,
+      }}
+    />
     <Stack.Screen
       name={TRANSACTIONS}
       component={Transactions}
@@ -48,22 +56,41 @@ const BenefitsStack = () => (
       }}
     />
     <Stack.Screen name={TRANSACTION_DETAILS} component={TransactionDetails} />
-    <Stack.Screen name={SELECT_ENTITY} component={SelectEntity} />
+    <Stack.Screen
+      name={SELECT_ENTITY}
+      component={SelectEntity}
+      options={{
+        headerTitle: 'Cambia tus puntos',
+        headerShadowVisible: false,
+      }}
+    />
     <Stack.Screen name={INPUT_BALANCE} component={InputBalance} />
     <Stack.Screen name={REDEEM_CONFIRMATION} component={RedeemConfirmation} />
   </Stack.Navigator>
 );
 
+const homeIcon = require('./src/assets/icons/home.png');
+const homeFocusedIcon = require('./src/assets/icons/home_focused.png');
+const benefitsIcon = require('./src/assets/icons/benefits.png');
+const benefitsFocusedIcon = require('./src/assets/icons/benefits_focused.png');
+const walletIcon = require('./src/assets/icons/wallet.png');
+const accountIcon = require('./src/assets/icons/account.png');
+
 const TabNavigation = () => (
-  <Tab.Navigator screenOptions={{
-    headerShown: false
-  }}>
+  <Tab.Navigator
+    screenOptions={{
+      headerShown: false,
+      tabBarStyle: { height: 76 },
+    }}>
     <Tab.Screen
       name={HOME}
       component={Home}
       options={{
         tabBarLabel: 'Home',
         tabBarTestID: 'tab-home',
+        tabBarIcon: ({ focused }) => {
+          return <Image source={!focused ? homeIcon : homeFocusedIcon} />;
+        },
       }}
     />
     <Tab.Screen
@@ -71,15 +98,22 @@ const TabNavigation = () => (
       component={BenefitsStack}
       options={{
         tabBarLabel: 'Beneficios',
+        tabBarIcon: ({ focused }) => {
+          return (
+            <Image source={!focused ? benefitsIcon : benefitsFocusedIcon} />
+          );
+        },
       }}
     />
     <Tab.Screen
       name={WALLET}
-      component={Home}
+      component={Wallet}
       options={{
         tabBarLabel: 'Cartera',
         tabBarTestID: 'tab-wallet',
-
+        tabBarIcon: () => {
+          return <Image source={walletIcon} />;
+        },
       }}
     />
     <Tab.Screen
@@ -88,14 +122,15 @@ const TabNavigation = () => (
       options={{
         tabBarLabel: 'Cuenta',
         tabBarTestID: 'tab-account',
-
+        tabBarIcon: () => {
+          return <Image source={accountIcon} />;
+        },
       }}
     />
   </Tab.Navigator>
 );
 
 const Navigation = () => {
-
   return (
     <NavigationContainer>
       <TabNavigation />
