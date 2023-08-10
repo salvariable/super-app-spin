@@ -19,3 +19,9 @@ export type TTransaction = {
     giftCode?: string;
 }
 
+export type TEntity = {
+  id: number;
+  name: string;
+  category: string;
+  avatar: string;
+}

@@ -46,7 +46,6 @@ const BenefitsStack = () => (
       options={{
         headerTitle: 'Beneficios',
         headerShadowVisible: false,
-        headerTitleAlign: 'left',
       }}
     />
     <Stack.Screen
@@ -57,7 +56,14 @@ const BenefitsStack = () => (
       }}
     />
     <Stack.Screen name={TRANSACTION_DETAILS} component={TransactionDetails} />
-    <Stack.Screen name={SELECT_ENTITY} component={SelectEntity} />
+    <Stack.Screen
+      name={SELECT_ENTITY}
+      component={SelectEntity}
+      options={{
+        headerTitle: 'Cambia tus puntos',
+        headerShadowVisible: false,
+      }}
+    />
     <Stack.Screen name={INPUT_BALANCE} component={InputBalance} />
     <Stack.Screen name={REDEEM_CONFIRMATION} component={RedeemConfirmation} />
   </Stack.Navigator>
