@@ -1,8 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
 import { render } from '@testing-library/react-native';
 
+import type { TTransaction } from '../types/data.types';
+
 import TransactionDetails from '../screens/TransactionDetails';
-import { TTransaction } from '../types/data.types';
 
 describe('<TransactionDetails />', () => {
   const props: any = {
@@ -12,11 +13,11 @@ describe('<TransactionDetails />', () => {
           entity: 'Hola',
           operation: 'earned',
           points: 333,
-          transactionNo: '123'
-        } as TTransaction
-      }
-    }
-  }
+          transactionNo: '123',
+        } as TTransaction,
+      },
+    },
+  };
   const setup = () => render(<TransactionDetails {...props} />);
 
   it('should render layout', () => {
@@ -28,7 +29,7 @@ describe('<TransactionDetails />', () => {
     const date = getByTestId('date');
     const expiryDate = getByTestId('expiry-date');
     const transactionNumber = getByTestId('transaction-number');
-    const operationPoints = `${points.children[0]}${points.children[1]}`
+    const operationPoints = `${points.children[0]}${points.children[1]}`;
 
     expect(entity).toBeOnTheScreen();
     expect(operationPoints).toBe('+333');

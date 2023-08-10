@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { render } from '@testing-library/react-native';
 
-import { Home } from '../screens/Home';
+import { Home } from '../screens';
 
 describe('<Home />', () => {
   it('should render layout', () => {
