@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Alert } from 'react-native';
 
 import TextInput from '../components/atoms/TextInput';
@@ -8,18 +8,13 @@ import { useAppContext } from '../context/AppContext';
 import handleConvertPointsToAmount from '../helpers/handleConvertPointsToAmount';
 import { errorMaxLabel, errorMinLabel } from '../constants/inputs';
 import { TTransaction } from '../types/data.types';
-import { NavigationProp } from '@react-navigation/native';
 import { TStackBenefits } from '../types/navigation.types';
 import { INPUT_BALANCE, REDEEM_CONFIRMATION } from '../constants/screens';
-import { M } from 'msw/lib/glossary-de6278a9';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-// const AmountButton = ()
 
 const InputBalance = ({ navigation }: NativeStackScreenProps<TStackBenefits, typeof INPUT_BALANCE>) => {
   const { balancePoints } = useAppContext();
-
-  const inputRef = useRef(null);
 
   const [amount, setAmount] = useState('0');
 
