@@ -15,7 +15,7 @@
     "@kichiyaki/react-native-barcode-generator": "^0.6.7",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
-    "@react-navigation/native-stack": "^6.9.13",
+    "@react-navigation/stack": "^6.3.17",
     "axios": "^1.4.0",
     "json-server": "^0.17.3",
     "lottie-react-native": "^6.0.1",

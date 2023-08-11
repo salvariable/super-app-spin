@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import type {
@@ -35,7 +35,7 @@ import {
 
 import Account from './src/screens/Account';
 
-const Stack = createNativeStackNavigator<TStackBenefits>();
+const Stack = createStackNavigator<TStackBenefits>();
 
 const Tab = createBottomTabNavigator<TTabNavigation>();
 
@@ -79,6 +79,8 @@ const accountIcon = require('./src/assets/icons/account.png');
 
 const TabNavigation = () => (
   <Tab.Navigator
+    initialRouteName={HOME}
+    detachInactiveScreens={false}
     screenOptions={{
       headerShown: false,
       tabBarStyle: { height: 76 },
