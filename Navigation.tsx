@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -32,7 +33,7 @@ import {
   Wallet,
 } from './src/screens';
 
-import { Image } from 'react-native';
+import Account from './src/screens/Account';
 
 const Stack = createNativeStackNavigator<TStackBenefits>();
 
@@ -118,7 +119,7 @@ const TabNavigation = () => (
     />
     <Tab.Screen
       name={ACCOUNT}
-      component={Home}
+      component={Account}
       options={{
         tabBarLabel: 'Cuenta',
         tabBarTestID: 'tab-account',

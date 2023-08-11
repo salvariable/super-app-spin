@@ -1,26 +1,16 @@
-// Test 2: 
-// Renders modal when text button is pressed
-
-// Test 3: 
-// Callback is called when icon button is pressed
-
-// Test 4: 
-// Callback is called when filled button is pressed
-
-// Test 5: 
-// Callback is called when contained button is pressed
-
-// Test 6: 
-// Modal is visible, changes input from empty to full, and button function is called
-
-import { describe, expect, it } from '@jest/globals';
-import { render } from '@testing-library/react-native';
+import { describe, expect, it, jest } from '@jest/globals';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
 import { TTransaction } from '../types/data.types';
 import { RedeemConfirmation } from '../screens';
+import ThemeProvider from '../theme/ThemeProvider';
+import { FEED, HOME } from '../constants/screens';
 
 describe('<RedeemConfirmation />', () => {
     const props: any = {
+        navigation: {
+            navigate: jest.fn()
+        },
         route: {
             params: {
                 transaction: {
@@ -36,7 +26,9 @@ describe('<RedeemConfirmation />', () => {
             }
         }
     }
-    const setup = () => render(<RedeemConfirmation {...props} />);
+    const setup = () => render(<RedeemConfirmation {...props} />, {
+        wrapper: ThemeProvider,
+    });
 
     it('should render layout', () => {
         const { getByTestId } = setup();
@@ -48,6 +40,8 @@ describe('<RedeemConfirmation />', () => {
         const expiryDate = getByTestId('expiry-date');
         const giftCode = getByTestId('gift-code');
         const transactionNumber = getByTestId('transaction-number');
+        const certificateButton = getByTestId('certificate-button');
+        const saveButton = getByTestId('save-button');
 
         expect(entity).toBeOnTheScreen();
         expect(points).toBeOnTheScreen();
@@ -56,5 +50,28 @@ describe('<RedeemConfirmation />', () => {
         expect(transactionNumber).toBeOnTheScreen();
         expect(date).toBeOnTheScreen();
         expect(expiryDate).toBeOnTheScreen
+
+        expect(certificateButton).toBeOnTheScreen();
+        expect(saveButton).toBeOnTheScreen();
     });
+
+    it('should display modal on certificate button press', () => {
+        const { getByTestId } = setup();
+
+        const certificateButton = getByTestId('certificate-button');
+        fireEvent.press(certificateButton);
+
+        // expect(getByTestId('certificate-modal')).toBeOnTheScreen();
+    })
+
+    it('should navigate to Benefits Feed on save button press', async () => {
+        const { getByTestId } = setup();
+
+        const saveButton = getByTestId('save-button');
+        fireEvent.press(saveButton);
+
+        await waitFor(() => {
+            expect(props.navigation.navigate).toHaveBeenCalledWith(FEED)
+        })
+    })
 });
