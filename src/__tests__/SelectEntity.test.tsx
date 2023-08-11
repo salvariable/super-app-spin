@@ -21,7 +21,6 @@ import { SelectEntity } from '../screens';
 
 import ThemeProvider from '../theme/ThemeProvider';
 import AppProvider from '../context/AppContext';
-import { NavigationContainer } from '@react-navigation/native';
 
 const DB_ENTITY = [
   {
