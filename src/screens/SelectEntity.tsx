@@ -7,10 +7,10 @@ import Text from '../components/Text/Text';
 import EntityItem from '../components/custom/EntityItem';
 
 const SelectEntity = () => {
-  const { getEntities, entities } = useAppContext();
+  const { fetchEntities, entities } = useAppContext();
 
   useEffect(() => {
-    getEntities();
+    fetchEntities();
   }, []);
 
   return (

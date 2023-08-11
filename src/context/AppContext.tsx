@@ -11,12 +11,12 @@ import {
 import type { TEntity } from '../types/data.types';
 
 import { useFetchTransactions } from '../hooks/useFetchTransactions';
-import { useFetchEntities } from '../hooks/useFetchEntities';
 
+import { getEntities } from '../api/entities';
 type AppState = {
   balancePoints: number;
   entities: TEntity[];
-  getEntities: () => Promise<void>;
+  fetchEntities: () => Promise<void>;
 };
 
 type AppProviderProps = PropsWithChildren<{}>;
@@ -28,7 +28,7 @@ type ACTION_TYPE =
 const initialState: AppState = {
   balancePoints: 0,
   entities: [],
-  getEntities: () => Promise.resolve(),
+  fetchEntities: () => Promise.resolve(),
 };
 
 const reducer = (state: AppState, action: ACTION_TYPE): AppState => {
@@ -54,7 +54,6 @@ export const useAppContext = () => useContext(AppContext);
 
 const AppProvider = ({ children }: AppProviderProps) => {
   const { data } = useFetchTransactions();
-  const { getEntities: fetchEntities } = useFetchEntities();
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -68,14 +67,14 @@ const AppProvider = ({ children }: AppProviderProps) => {
     dispatch({ type: 'SET_POINTS', payload: myPoints });
   }, [myPoints]);
 
-  const getEntities = useCallback(async () => {
-    const entitiesData = await fetchEntities();
+  const fetchEntities = useCallback(async () => {
+    const { data } = await getEntities();
 
-    dispatch({ type: 'SET_ENTITIES', payload: entitiesData });
+    dispatch({ type: 'SET_ENTITIES', payload: data });
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state, getEntities }}>
+    <AppContext.Provider value={{ ...state, fetchEntities }}>
       {children}
     </AppContext.Provider>
   );
