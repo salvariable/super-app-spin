@@ -22,34 +22,33 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
 describe('<InputBalance />', () => {
-
   const transaction = {
     entity: 'Hola',
     operation: 'earned',
     points: 333,
-    transactionNo: '123'
-  } as TTransaction
+    transactionNo: '123',
+  } as TTransaction;
 
   const props: any = {
     navigation: {
-      navigate: jest.fn()
+      navigate: jest.fn(),
     },
     route: {
       params: {
-        transaction
-      }
-    }
-  }
+        transaction,
+      },
+    },
+  };
 
   const DB_RESPONSE = [
     {
       entity: 'Oxxo Gas',
       date: 'Sun Aug 06 2023',
-      expiryDate: "Fri Sep 01 2023",
+      expiryDate: 'Fri Sep 01 2023',
       points: 100,
       operation: 'earned',
       transactionNo: '5dced89c-2b6e-4a1c-a715-c19b0a51',
-      giftCode: "42738499092812008",
+      giftCode: '42738499092812008',
       id: 1,
     },
   ];
@@ -150,8 +149,11 @@ describe('<InputBalance />', () => {
     fireEvent.press(button);
 
     await waitFor(() => {
-      expect(props.navigation.navigate).toHaveBeenCalledWith(REDEEM_CONFIRMATION, { transaction: DB_RESPONSE })
-    })
+      expect(props.navigation.navigate).toHaveBeenCalledWith(
+        REDEEM_CONFIRMATION,
+        { transaction: DB_RESPONSE },
+      );
+    });
   });
 
   it('should enable button when input is true and fail when calling API', async () => {
@@ -257,4 +259,3 @@ describe('<InputBalance />', () => {
 // Test 9: If user has more than 1,000 points, amount is selected and button is enabled
 
 // Test 12: If input value is higher than balance, error message is expected
-

@@ -18,7 +18,7 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
-describe('<TransactionPoints />', () => {
+describe('<TransactionsPoints />', () => {
   beforeEach(() => {
     mockedNavigation.mockClear();
   });

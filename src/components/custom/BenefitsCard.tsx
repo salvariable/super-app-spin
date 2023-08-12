@@ -4,6 +4,8 @@ import { Image, ImageSourcePropType, StyleSheet } from 'react-native';
 import BaseCard from '../Card/components/BaseCard';
 import Text from '../Text/Text';
 
+import { INTER, POPPINS } from '../../styles/custom';
+
 type BenefitsCardProps = {
   title: string;
   body: string;
@@ -42,9 +44,13 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     marginBottom: 16,
+    fontFamily: POPPINS,
+    fontWeight: '500',
   },
   cardBodyText: {
     marginBottom: 16,
+    fontFamily: INTER,
+    fontWeight: '400',
   },
   img: {
     alignSelf: 'center',

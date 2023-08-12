@@ -9,25 +9,16 @@ import BaseCard from '../Card/components/BaseCard';
 import Text from '../Text/Text';
 
 import { INPUT_BALANCE } from '../../constants/screens';
+import {
+  CATEGORIES,
+  ENTITY_LIMIT,
+  ENTITY_MIN,
+  IMAGES,
+} from '../../constants/values';
 
-export const ENTITY_LIMIT = 1000;
-export const ENTITY_MIN = 20;
+import { INTER } from '../../styles/custom';
 
-const IMAGES: Record<string, ImageSourcePropType> = {
-  volaris: require('../../assets/Images/volaris.png'),
-  'smart-fit': require('../../assets/Images/smart-fit.png'),
-  vix: require('../../assets/Images/vix.png'),
-  oxxo: require('../../assets/Images/oxxo.png'),
-  'oxxo-gas': require('../../assets/Images/oxxo-gas.png'),
-};
-
-const CATEGORIES: Record<string, string> = {
-  fuel: 'Combustible',
-  flight: 'Vuelos',
-  fitness: 'Deportes',
-  entertainment: 'Entretenimiento',
-  groceries: 'Supermercado',
-};
+const chevronRight = require('../../assets/rightArrow.png');
 
 const EntityItem = ({ entity }: { entity: TEntity }) => {
   const navigation = useNavigation<NavigationProp<TStackBenefits>>();
@@ -46,9 +37,14 @@ const EntityItem = ({ entity }: { entity: TEntity }) => {
       <View style={styles.entityData}>
         <Image source={IMAGES[entity.avatar]} style={styles.avatar} />
         <View>
-          <Text variant="content-one-regular">{entity.name}</Text>
-          <Text>{CATEGORIES[entity.category]}</Text>
+          <Text variant="content-one-regular" style={styles.entityName}>
+            {entity.name}
+          </Text>
+          <Text variant="small-body" style={styles.category}>
+            {CATEGORIES[entity.category]}
+          </Text>
         </View>
+        <Image source={chevronRight} style={styles.chevron} />
       </View>
     </BaseCard>
   );
@@ -59,10 +55,10 @@ export default EntityItem;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    padding: 12,
     borderRadius: 8,
+    width: 'auto',
   },
   entityData: {
     flexDirection: 'row',
@@ -71,5 +67,18 @@ const styles = StyleSheet.create({
   },
   avatar: {
     borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#e6e6ec',
+  },
+  entityName: {
+    fontWeight: '600',
+    fontFamily: INTER,
+  },
+  category: {
+    color: '#69698B',
+    fontFamily: INTER,
+  },
+  chevron: {
+    marginLeft: 'auto',
   },
 });

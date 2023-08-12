@@ -34,6 +34,8 @@ import {
 } from './src/screens';
 
 import Account from './src/screens/Account';
+import Header from './src/components/custom/Header';
+import { ColorType } from './src/styles/types';
 
 const Stack = createStackNavigator<TStackBenefits>();
 
@@ -45,24 +47,28 @@ const BenefitsStack = () => (
       name={FEED}
       component={Benefits}
       options={{
-        headerTitle: 'Beneficios',
-        headerShadowVisible: false,
+        header: () => <Header title="Beneficios" canGoBack={false} />,
       }}
     />
     <Stack.Screen
       name={TRANSACTIONS}
       component={Transactions}
       options={{
-        headerTitle: 'Movimientos',
+        header: () => <Header title="Movimientos" />,
       }}
     />
-    <Stack.Screen name={TRANSACTION_DETAILS} component={TransactionDetails} />
+    <Stack.Screen
+      name={TRANSACTION_DETAILS}
+      component={TransactionDetails}
+      options={{
+        header: () => <Header title="Detalles del movimiento" />,
+      }}
+    />
     <Stack.Screen
       name={SELECT_ENTITY}
       component={SelectEntity}
       options={{
-        headerTitle: 'Cambia tus puntos',
-        headerShadowVisible: false,
+        header: () => <Header title="Cambia tus puntos" />,
       }}
     />
     <Stack.Screen name={INPUT_BALANCE} component={InputBalance} />
@@ -84,6 +90,17 @@ const TabNavigation = () => (
     screenOptions={{
       headerShown: false,
       tabBarStyle: { height: 76 },
+      tabBarLabelStyle: {
+        fontSize: 12,
+        lineHeight: 16,
+        color: '#000',
+      },
+      tabBarActiveTintColor: '#000',
+      tabBarInactiveTintColor: '#69698b',
+      tabBarItemStyle: {
+        paddingVertical: 14,
+        justifyContent: 'center',
+      },
     }}>
     <Tab.Screen
       name={HOME}

@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { useAppContext } from '../../context/AppContext';
+
 import Tag from '../atoms/Tag';
 import Text from '../Text/Text';
 
-import { useAppContext } from '../../context/AppContext';
 import handleConvertPointsToAmount from '../../helpers/handleConvertPointsToAmount';
 import { handleFormatPoints } from '../../helpers/handleFormatPoints';
+
+import { POPPINS } from '../../styles/custom';
 
 const MyPoints = () => {
   const { balancePoints } = useAppContext();
@@ -28,7 +31,8 @@ export default MyPoints;
 
 const styles = StyleSheet.create({
   pointsValue: {
-    fontWeight: 'bold',
+    fontFamily: POPPINS,
+    fontWeight: '700',
     marginBottom: 8,
   },
 });

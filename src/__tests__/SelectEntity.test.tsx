@@ -27,13 +27,13 @@ const DB_ENTITY = [
     id: 1,
     name: 'Oxxo Gas',
     category: 'fuel',
-    avatar: './../src/assets/Images/volaris.png.png',
+    avatar: './../src/assets/Images/volaris.png',
   },
   {
     id: 2,
     name: 'Volaris',
     category: 'flight',
-    avatar: './../src/assets/Images/volaris.png.png',
+    avatar: './../src/assets/Images/volaris.png',
   },
 ];
 
