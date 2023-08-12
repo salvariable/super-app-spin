@@ -1,24 +1,45 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
-  Text,
   View,
-  FlatList,
   useWindowDimensions,
+  StyleSheet,
+  SectionList,
+  SectionListData,
 } from 'react-native';
 import { SceneMap, TabView } from 'react-native-tab-view';
 
 import type { TOperationType, TTransaction } from '../types/data.types';
 
 import TabBar from '../components/TabBar/TabBar';
+import Text from '../components/Text/Text';
+import TransactionItem from '../components/custom/TransactionItem';
+
+import handleReferenceDay from '../helpers/handleReferenceDay';
 
 import { useFetchTransactions } from '../hooks/useFetchTransactions';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { TRANSACTION_DETAILS } from '../constants/screens';
-import { TStackBenefits } from '../types/navigation.types';
+import { INTER } from '../styles/custom';
 
-type Props = {};
+const createListData = (data: TTransaction[]) => {
+  const dates = new Set(data.map(transaction => transaction.date));
+
+  const orderedDates = Array.from(dates).sort(
+    (a, b) => new Date(b).getTime() - new Date(a).getTime(),
+  );
+
+  let listData: SectionListData<TTransaction>[] = [];
+
+  orderedDates.forEach(date => {
+    const sectionData = data.filter(transaction => transaction.date === date);
+
+    listData.push({
+      title: date,
+      data: sectionData,
+    });
+  });
+
+  return listData;
+};
 
 const filterData = (data: TTransaction[], operation: TOperationType) => {
   return data.filter(transaction => transaction.operation === operation);
@@ -29,32 +50,30 @@ const MovementsList = ({
   data,
 }: {
   testID: string;
-  data: TTransaction[];
+  data: SectionListData<TTransaction>[];
 }) => {
-  const navigation = useNavigation<NavigationProp<TStackBenefits>>();
-
-  const goToDetails = (transaction: TTransaction) =>
-    navigation.navigate(TRANSACTION_DETAILS, {
-      transaction,
-    });
+  const renderItem = ({ item }: { item: TTransaction }) => (
+    <TransactionItem transaction={item} />
+  );
 
   return (
-    <FlatList
-      data={data}
+    <SectionList
+      sections={data}
       testID={testID}
       keyExtractor={item => item.id.toString()}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => goToDetails(item)}>
-          <Text>{item.entity}</Text>
-          <Text>{item.date}</Text>
-          <Text>{item.points}</Text>
-        </TouchableOpacity>
+      renderItem={renderItem}
+      renderSectionHeader={({ section: { title } }) => (
+        <View style={styles.sectionHeader}>
+          <Text variant="small-body" style={styles.sectionTitle}>
+            {handleReferenceDay(title)}
+          </Text>
+        </View>
       )}
     />
   );
 };
 
-const Transactions = (props: Props) => {
+const Transactions = () => {
   const { data, loading, error } = useFetchTransactions();
 
   const layout = useWindowDimensions();
@@ -67,29 +86,34 @@ const Transactions = (props: Props) => {
   ]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container} testID="transactions-container">
       {loading ? (
         <ActivityIndicator testID="loader" />
       ) : (
         <TabView
+          testID="tabs"
           navigationState={{ index, routes }}
+          style={styles.tabContainer}
+          renderTabBar={props => <TabBar {...props} style={styles.tabBar} />}
           renderScene={SceneMap({
-            all: () => <MovementsList testID="tab-all" data={data} />,
+            all: () => (
+              <MovementsList testID="tab-all" data={createListData(data)} />
+            ),
             earned: () => (
               <MovementsList
                 testID="tab-earned"
-                data={filterData(data, 'earned')}
+                data={createListData(filterData(data, 'earned'))}
               />
             ),
             redeemed: () => (
               <MovementsList
                 testID="tab-redeemed"
-                data={filterData(data, 'redeemed')}
+                data={createListData(filterData(data, 'redeemed'))}
               />
             ),
           })}
           onIndexChange={setIndex}
-          initialLayout={{ width: layout.width, height: layout.height }}
+          initialLayout={{ width: layout.width }}
         />
       )}
     </View>
@@ -97,3 +121,24 @@ const Transactions = (props: Props) => {
 };
 
 export default Transactions;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  tabContainer: {
+    backgroundColor: '#fff',
+  },
+  tabBar: {
+    backgroundColor: '#fff',
+  },
+  sectionHeader: {
+    backgroundColor: '#fff',
+    padding: 16,
+  },
+  sectionTitle: {
+    fontWeight: '600',
+    fontFamily: INTER,
+  },
+});

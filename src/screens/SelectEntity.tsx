@@ -5,6 +5,7 @@ import { useAppContext } from '../context/AppContext';
 
 import Text from '../components/Text/Text';
 import EntityItem from '../components/custom/EntityItem';
+import { INTER } from '../styles/custom';
 
 const SelectEntity = () => {
   const { fetchEntities, entities } = useAppContext();
@@ -19,7 +20,10 @@ const SelectEntity = () => {
         <ActivityIndicator testID="loader" />
       ) : (
         <>
-          <Text variant="content-one-regular" numberOfLines={2}>
+          <Text
+            variant="content-one-regular"
+            style={styles.label}
+            numberOfLines={2}>
             Elige la marca aliada en la que quieres usar tus puntos
           </Text>
           <FlatList
@@ -41,5 +45,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 16,
+  },
+  label: {
+    marginBottom: 12,
+    fontFamily: INTER,
   },
 });

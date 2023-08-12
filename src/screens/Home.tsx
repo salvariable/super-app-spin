@@ -1,4 +1,8 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+
+import Text from '../components/Text/Text';
+
+import { POPPINS } from '../styles/custom';
 
 const phoneIcon = require('../assets/icons/phone.png');
 
@@ -6,7 +10,9 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <Image source={phoneIcon} style={styles.icon} />
-      <Text testID="home-text">Pantalla Home</Text>
+      <Text variant="headline-small" testID="home-text" style={styles.homeText}>
+        Pantalla Home
+      </Text>
     </View>
   );
 };
@@ -22,5 +28,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginBottom: 20,
+  },
+  homeText: {
+    fontWeight: '500',
+    fontFamily: POPPINS,
   },
 });

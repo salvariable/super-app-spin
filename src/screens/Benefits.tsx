@@ -5,6 +5,7 @@ import BenefitsCard from '../components/custom/BenefitsCard';
 import MyPoints from '../components/custom/MyPoints';
 import Text from '../components/Text/Text';
 import TransactionsPoints from '../components/custom/TransactionsPoints';
+import { INTER } from '../styles/custom';
 
 const spinImg = require('../assets/Images/spin.png');
 
@@ -13,7 +14,7 @@ const Benefits = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.pointsHeader}>
         <View>
-          <Text variant="small-body" numberOfLines={2}>
+          <Text variant="small-body" style={styles.haveLabel} numberOfLines={2}>
             Tienes
           </Text>
           <MyPoints />
@@ -52,7 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 24,
+    marginBottom: 24,
+  },
+  haveLabel: {
+    fontFamily: INTER,
+    fontWeight: '600',
   },
   transactionsPointsContainer: {
     marginBottom: 16,

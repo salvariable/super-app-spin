@@ -5,6 +5,8 @@ import type { TTransaction } from '../types/data.types';
 
 import TransactionDetails from '../screens/TransactionDetails';
 
+import ThemeProvider from '../theme/ThemeProvider';
+
 describe('<TransactionDetails />', () => {
   const props: any = {
     route: {
@@ -18,7 +20,10 @@ describe('<TransactionDetails />', () => {
       },
     },
   };
-  const setup = () => render(<TransactionDetails {...props} />);
+  const setup = () =>
+    render(<TransactionDetails {...props} />, {
+      wrapper: ThemeProvider,
+    });
 
   it('should render layout', () => {
     const { getByTestId } = setup();
@@ -33,7 +38,7 @@ describe('<TransactionDetails />', () => {
 
     expect(entity).toBeOnTheScreen();
     expect(operationPoints).toBe('+333');
-    expect(amount.children[0]).toBe('$33.3');
+    expect(amount.children[0]).toBe('$33.30');
     expect(transactionNumber).toBeOnTheScreen();
     expect(date).toBeOnTheScreen();
     expect(expiryDate).toBeOnTheScreen();

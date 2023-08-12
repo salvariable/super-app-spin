@@ -4,10 +4,9 @@ import { render, fireEvent } from '@testing-library/react-native';
 
 import type { TEntity } from '../types/data.types';
 
-import EntityItem, {
-  ENTITY_LIMIT,
-  ENTITY_MIN,
-} from '../components/custom/EntityItem';
+import EntityItem from '../components/custom/EntityItem';
+
+import { ENTITY_LIMIT, ENTITY_MIN } from '../constants/values';
 
 import { INPUT_BALANCE } from '../constants/screens';
 

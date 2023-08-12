@@ -21,7 +21,11 @@ export const useFetchTransactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const { data } = await getTransactions();
+        const { data, status } = await getTransactions();
+
+        if (status !== 200) {
+          throw new Error('Error fetching transactions');
+        }
 
         setTransactionsResponse({
           ...transactionsResponse,

@@ -8,6 +8,7 @@ import BaseCard from '../Card/components/BaseCard';
 import Text from '../Text/Text';
 
 import { SELECT_ENTITY, TRANSACTIONS } from '../../constants/screens';
+import { INTER } from '../../styles/custom';
 
 const starImg = require('../../assets/Images/star.png');
 const ticketImg = require('../../assets/Images/ticket.png');
@@ -76,5 +77,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     textAlign: 'center',
     marginTop: 16,
+    fontFamily: INTER,
+    fontWeight: '600',
   },
 });
