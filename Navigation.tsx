@@ -23,6 +23,7 @@ import {
 } from './src/constants/screens';
 
 import {
+  Account,
   Benefits,
   Home,
   InputBalance,
@@ -33,7 +34,6 @@ import {
   Wallet,
 } from './src/screens';
 
-import Account from './src/screens/Account';
 import Header from './src/components/custom/Header';
 import { ColorType } from './src/styles/types';
 
@@ -71,8 +71,12 @@ const BenefitsStack = () => (
         header: () => <Header title="Cambia tus puntos" />,
       }}
     />
-    <Stack.Screen name={INPUT_BALANCE} component={InputBalance} />
-    <Stack.Screen name={REDEEM_CONFIRMATION} component={RedeemConfirmation} />
+    <Stack.Screen name={INPUT_BALANCE} component={InputBalance} options={{
+      header: () => <Header title="Cambia tus puntos" />,
+    }} />
+    <Stack.Screen name={REDEEM_CONFIRMATION} component={RedeemConfirmation} options={{
+      headerShown: false
+    }} />
   </Stack.Navigator>
 );
 
@@ -88,7 +92,6 @@ const TabNavigation = () => (
     initialRouteName={HOME}
     detachInactiveScreens={false}
     screenOptions={{
-      headerShown: false,
       tabBarStyle: { height: 76 },
       tabBarLabelStyle: {
         fontSize: 12,
@@ -106,6 +109,7 @@ const TabNavigation = () => (
       name={HOME}
       component={Home}
       options={{
+        headerShown: false,
         tabBarLabel: 'Home',
         tabBarTestID: 'tab-home',
         tabBarIcon: ({ focused }) => {
@@ -117,6 +121,7 @@ const TabNavigation = () => (
       name={BENEFITS}
       component={BenefitsStack}
       options={{
+        headerShown: false,
         tabBarLabel: 'Beneficios',
         tabBarIcon: ({ focused }) => {
           return (
@@ -129,6 +134,7 @@ const TabNavigation = () => (
       name={WALLET}
       component={Wallet}
       options={{
+        headerShown: false,
         tabBarLabel: 'Cartera',
         tabBarTestID: 'tab-wallet',
         tabBarIcon: () => {
@@ -145,6 +151,7 @@ const TabNavigation = () => (
         tabBarIcon: () => {
           return <Image source={accountIcon} />;
         },
+        header: () => <Header title="Cuenta" canGoBack={false} />,
       }}
     />
   </Tab.Navigator>

@@ -6,3 +6,4 @@ export {default as SelectEntity} from './SelectEntity';
 export {default as TransactionDetails} from './TransactionDetails';
 export {default as Transactions} from './Transactions';
 export {default as Wallet} from './Wallet';
+export {default as Account} from './Account';
